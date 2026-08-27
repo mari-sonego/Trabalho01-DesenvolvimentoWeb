@@ -9,25 +9,20 @@ const Formulario = (props) => {
 
     const aoSalvar = (evento) => {
         evento.preventDefault()
-        props.aoProdCadastrado(
-            {
-                "secao": secao,
-                "marca": marca,
-                "nome": nome,
-                "preco": preco,
-                "condicao": estadoProduto
-
-            }
-        )
+        props.aoProdCadastrado({
+            "secao": secao,
+            "marca": marca,
+            "nome": nome,
+            "preco": preco,
+            "condicao": estadoProduto
+        })
+        
+        setNome('')
+        setPreco('')
+        setSecao('Computadores')
+        setMarca('Dell')
+        setEstadoProduto('Novo') 
     }
-
-    const secoes = [
-        'Computadores',
-        'Acessorios',
-        'Impressoras',
-        'Game',
-        'Gadget'
-    ]
 
     const marcas = [
         'HP',
@@ -41,22 +36,18 @@ const Formulario = (props) => {
     const [preco, setPreco] = useState('')
     const [secao, setSecao] = useState('Computadores')
     const [marca, setMarca] = useState('Dell')
-
-    const [estadoProduto, setEstadoProduto] = useState("");
+    const [estadoProduto, setEstadoProduto] = useState("Novo");
 
     const lidarComMudanca = (event) => {
         setEstadoProduto(event.target.value);
     };
 
-
     return (
         <section className="formulario">
-
             <form onSubmit={aoSalvar}>
-
                 <h2>Dados do produto:</h2>
                 
-                <ListaSuspensa label="Seções" itens={secoes} valor={secao} aoAlterado={valor => setSecao(valor)}/>
+                <ListaSuspensa label="Seções" itens={props.secoes} valor={secao} aoAlterado={valor => setSecao(valor)}/>
                 <ListaSuspensa label="Marcas" itens={marcas} valor={marca} aoAlterado={valor => setMarca(valor)}/>
                 
                 <CampoTexto label="Nome" placeholder="Digite o nome" valor={nome} aoAlterado={valor => setNome(valor)}/>
@@ -68,9 +59,7 @@ const Formulario = (props) => {
                 </div>
 
                 <Botao texto="Adicionar produto" />
-
             </form>
-
         </section>
     )
 }
